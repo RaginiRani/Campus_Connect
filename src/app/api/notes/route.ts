@@ -1,17 +1,42 @@
-import connect from "@/lib/dbConfig";
-import Note from "@/models/Note";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import Note from "@/models/Note";
+import connect from "@/lib/dbConfig";
+import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function GET(req: Request) {
-  await connect();
+export async function GET() {
+  try {
+    const session = await getServerSession(authOptions);
 
-  const url = new URL(req.url);
-  const semester = Number(url.searchParams.get("semester")); // get semester from query
+    if (!session || session.user.role !== "student") {
+      return NextResponse.json(
+        { message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+      console.log("SESSION SEMESTER:", session.user.semester);
 
-  const query: any = {};
-  if (semester) query.semester = semester;
+    // 🔒 HARD CHECK
+    if (!session.user.semester) {
+      return NextResponse.json(
+        { message: "Semester not set" },
+        { status: 403 }
+      );
+    }
 
-  const notes = await Note.find(query).sort({ semester: 1, title: 1 });
+    await connect();
 
-  return NextResponse.json({ data: notes });
+    const notes = await Note.find({
+      semester: session.user.semester,
+    }).sort({ createdAt: -1 });
+
+    return NextResponse.json({ data: notes });
+
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Server error" },
+      { status: 500 }
+    );
+  }
 }

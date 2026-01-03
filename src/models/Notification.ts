@@ -6,7 +6,6 @@ const NotificationSchema = new Schema(
     message: { type: String, required: true },
     createdAt: { type: Date, default: Date.now, index: { expires: '7d' } },
 
-
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
@@ -10,6 +10,10 @@ export default function ProfilePage() {
   const [semester, setSemester] = useState<number | "">(
     session?.user?.semester ?? ""
   );
+  useEffect(() => {
+  console.log("SESSION FROM PROFILE:", session);
+}, [session]);
+
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +28,7 @@ export default function ProfilePage() {
     });
 
     if (res.ok) {
-      await update(); // refresh session
+      await update({semester}); // refresh session
       toast.success("Semester updated");
       // Redirect to dashboard
       router.push("/dashboard");
