@@ -10,9 +10,7 @@ export default function ProfilePage() {
   const [semester, setSemester] = useState<number | "">(
     session?.user?.semester ?? ""
   );
-  useEffect(() => {
-  console.log("SESSION FROM PROFILE:", session);
-}, [session]);
+  
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
