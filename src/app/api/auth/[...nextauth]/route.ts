@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
         await connect();
 
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Missing credentials");
+          throw new Error("Missing credentials: invalid email or password");
         }
 
         const user = await User.findOne({ email: credentials.email });
