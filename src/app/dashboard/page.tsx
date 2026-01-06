@@ -73,6 +73,10 @@ export default function StudentDashboard() {
           CampusConnect helps you stay organized with notes, events,
           cafeteria updates, and real-time notifications — all in one place.
         </p>
+
+        <p className="text-gray-400 p-2">
+          It is a comprehensive organizational platform designed for students.
+        </p>
       </div>
     </div>
   );
