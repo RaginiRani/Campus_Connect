@@ -10,7 +10,7 @@ import LogoutButton from "@/components/logoutButton";
 
 const navItems = [
   { name: "Notes", href: "/dashboard/notes", icon: BookOpen },
-  { name: "Events", href: "/events", icon: Calendar },
+  { name: "Events", href: "/dashboard/events", icon: Calendar },
   { name: "Cafeteria", href: "/cafeteria", icon: Coffee },
 ];
 

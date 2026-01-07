@@ -15,7 +15,7 @@ const cards = [
   {
     title: "Events",
     desc: "Upcoming college events",
-    href: "/events",
+    href: "/dashboard/events",
     icon: Calendar,
   },
   {
@@ -75,7 +75,7 @@ export default function StudentDashboard() {
         </p>
 
         <p className="text-gray-400 p-2">
-          It is a comprehensive organizational platform designed for students.
+          Your dashboard is designed to give you quick access to what matters the most, helping you stay informed and organised throughout the semester.
         </p>
       </div>
     </div>
