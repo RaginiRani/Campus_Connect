@@ -11,7 +11,7 @@ import LogoutButton from "@/components/logoutButton";
 const navItems = [
   { name: "Notes", href: "/dashboard/notes", icon: BookOpen },
   { name: "Events", href: "/dashboard/events", icon: Calendar },
-  { name: "Cafeteria", href: "/cafeteria", icon: Coffee },
+  { name: "Cafeteria", href: "/dashboard/cafeteria", icon: Coffee },
 ];
 
 export default function DashboardLayout({

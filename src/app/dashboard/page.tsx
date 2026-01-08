@@ -21,7 +21,7 @@ const cards = [
   {
     title: "Cafeteria",
     desc: "Today’s menu & schedule",
-    href: "/cafeteria",
+    href: "/dashboard/cafeteria",
     icon: Coffee,
   },
   {
