@@ -10,9 +10,31 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await signIn("credentials", { email, password, callbackUrl: "/" });
-  };
+  e.preventDefault();
+
+  const res = await signIn("credentials", {
+    email,
+    password,
+    redirect: false, // ❗ stop automatic redirect
+  });
+
+  if (res?.error) {
+    alert(res.error);
+    return;
+  }
+
+  // ✅ get session AFTER login
+  const session = await fetch("/api/auth/session").then((res) =>
+    res.json()
+  );
+
+  // ✅ redirect based on role
+  if (session.user.role === "admin") {
+    window.location.href = "/admin";
+  } else {
+    window.location.href = "/dashboard";
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#2b2d42] to-[#1b1f3b] px-4">

@@ -50,6 +50,7 @@ export default function StudentDashboard() {
       {/* Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((card, index) => (
+          <Link key={card.title} href={card.href}>
           <motion.div
             key={card.title}
             initial={{ opacity: 0, y: 30 }}
@@ -63,6 +64,7 @@ export default function StudentDashboard() {
             <h3 className="text-lg font-semibold">{card.title}</h3>
             <p className="mt-1 text-sm text-gray-400">{card.desc}</p>
           </motion.div>
+          </Link>
         ))}
       </div>
 

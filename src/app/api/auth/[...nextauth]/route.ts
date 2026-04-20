@@ -76,24 +76,32 @@ export const authOptions: NextAuthOptions = {
   ],
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        const u = user as AuthUser;
-        token.id = u.id;
-        token.role = u.role;
-        token.semester = u.semester;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as "student" | "admin";
-        session.user.semester = token.semester as number | undefined;
-      }
-      return session;
-    },
+  async jwt({ token, user, trigger, session }) {
+    // Initial login
+    if (user) {
+      const u = user as AuthUser;
+      token.id = u.id;
+      token.role = u.role;
+      token.semester = u.semester;
+    }
+
+    // 🔥 THIS FIXES YOUR ISSUE
+    if (trigger === "update") {
+      token.semester = session?.semester;
+    }
+
+    return token;
   },
+
+  async session({ session, token }) {
+    if (session.user) {
+      session.user.id = token.id as string;
+      session.user.role = token.role as "student" | "admin";
+      session.user.semester = token.semester as number | undefined;
+    }
+    return session;
+  },
+},
   pages: {
     signIn: "/login",
   },

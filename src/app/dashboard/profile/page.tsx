@@ -26,9 +26,9 @@ export default function ProfilePage() {
     });
 
     if (res.ok) {
-      await update({semester}); // refresh session
+      router.refresh(); // 🔥 important
       toast.success("Semester updated");
-      // Redirect to dashboard
+
       router.push("/dashboard");
     } else {
       toast.error("Failed to update");
